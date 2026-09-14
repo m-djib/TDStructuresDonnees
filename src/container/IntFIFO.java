@@ -51,6 +51,7 @@ public class IntFIFO implements Queue<Integer>{
         }
         else {
             Integer temp = this.tab[begin];
+            this.tab[this.begin] = null;
             this.begin = (this.begin + 1)%this.capacity;
             return temp;
         }
