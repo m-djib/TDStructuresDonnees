@@ -63,7 +63,7 @@ public class IntFIFO implements Queue<Integer>{
 
     @Override
     public int size() {
-        if (this.end > this.begin){
+        if (this.end >= this.begin){
             return this.end-this.begin;
         } else {
             return this.capacity - this.begin + this.end;
