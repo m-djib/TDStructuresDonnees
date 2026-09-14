@@ -17,7 +17,31 @@ public class IntPriorityQueue implements Queue<Integer> {
 
     @Override
     public boolean insertElement(Integer integer) {
-        return false;
+        this.tab[this.size] = integer;
+        this.ascend(this.size);
+        this.size++;
+
+        if (this.size == this.capacity) {
+            Integer[] tempTab = new Integer[this.capacity*2];
+            System.arraycopy(this.tab, 0, tempTab, 0, this.capacity);
+            this.capacity *= 2;
+            this.tab=tempTab;
+        }
+        return true;
+    }
+
+    private void ascend(int toAsc) {
+        if (toAsc == 0){
+            return;
+        }
+        Integer act = this.tab[toAsc];
+        int k = (toAsc-1)/2;
+
+        if (this.tab[k] < act){
+            this.tab[toAsc] = this.tab[k];
+            this.tab[k] = act;
+            this.ascend(k);
+        }
     }
 
     @Override
@@ -37,6 +61,7 @@ public class IntPriorityQueue implements Queue<Integer> {
             Integer tempVal = this.tab[0];
             this.size -= 1;
             this.tab[0] = this.tab[this.size];
+            this.tab[this.size] = null;
             this.descend(0);
             return tempVal;
         }
@@ -53,6 +78,7 @@ public class IntPriorityQueue implements Queue<Integer> {
                 this.tab[pos] = fg;
                 this.tab[2 * pos + 1] = act;
             }
+            return;
         }
 
         Integer fg = this.tab[2 * pos + 1];
@@ -62,11 +88,11 @@ public class IntPriorityQueue implements Queue<Integer> {
             if (fg > fd) {
                 this.tab[pos] = fg;
                 this.tab[2 * pos + 1] = act;
-                descend(2 * pos + 1);
+                this.descend(2 * pos + 1);
             } else {
                 this.tab[pos] = fd;
                 this.tab[2 * pos + 2] = act;
-                descend(2 * pos + 2);
+                this.descend(2 * pos + 2);
             }
         }
     }
