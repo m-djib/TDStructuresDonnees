@@ -4,10 +4,10 @@ import java.util.*;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
-class IntFIFOTest {
+public class TestIntFIFO {
 
     @Test
-    public void insertElement() {
+    public void test_insertElement() {
         IntFIFO queue = new IntFIFO(1);
         assertTrue(queue.isEmpty());
         assertEquals(0,queue.size());
@@ -16,7 +16,7 @@ class IntFIFOTest {
     }
 
     @Test
-    public void popElement() {
+    public void test_popElement() {
         IntFIFO queue = new IntFIFO(10);
         queue.insertElement(1);
         queue.insertElement(2);
