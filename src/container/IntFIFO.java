@@ -1,5 +1,7 @@
 package container;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -7,7 +9,7 @@ import java.util.NoSuchElementException;
  * Implements a resizable Integer queue structure.
  */
 
-public class IntFIFO implements Queue<Integer>{
+public class IntFIFO implements Queue<Integer>, Iterable<Integer>{
 
     private int capacity;
     private Integer[] tab;
@@ -101,8 +103,30 @@ public class IntFIFO implements Queue<Integer>{
     }
 
     @Override
+    @NotNull
     public Iterator<Integer> iterator() {
-        return null;
+        return new IntFIFOIterator();
+    }
+
+    private class IntFIFOIterator implements Iterator<Integer> {
+
+        private int counter;
+
+        private IntFIFOIterator() {
+            counter = IntFIFO.this.begin;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return counter != IntFIFO.this.end;
+        }
+
+        @Override
+        public Integer next() {
+            Integer val = IntFIFO.this.tab[counter];
+            counter+=1;
+            return val;
+        }
     }
 }
 
