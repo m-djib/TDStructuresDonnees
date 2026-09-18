@@ -3,6 +3,10 @@ package container;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+/**
+ * Implements a resizable Integer queue structure.
+ */
+
 public class IntFIFO implements Queue<Integer>{
 
     private int capacity;
@@ -10,34 +14,59 @@ public class IntFIFO implements Queue<Integer>{
     private int begin;
     private int end;
 
+    /** Creates an empty queue.
+     * @param capacity a positive integer giving the base capacity of the queue
+     * @throws IllegalArgumentException if the given capacity is negative
+     */
+
     public IntFIFO(int capacity){
-        this.capacity = capacity;
-        this.begin = 0;
-        this.end = 0;
-        this.tab = new Integer[capacity];
+        if (capacity < 0) {
+            throw new IllegalArgumentException("Negative capacity not allowed");
+        } else {
+            this.capacity = capacity;
+            this.begin = 0;
+            this.end = 0;
+            this.tab = new Integer[capacity];
+        }
     }
 
     @Override
     public boolean insertElement(Integer integer) {
         this.tab[end] = integer;
+        this.end = this.end+1;
 
-        if ((this.end+1)%this.capacity == this.begin){
-            Integer[] tempTab = new Integer[this.capacity*2];
+        if (this.size()==this.capacity){
+            this.resize(this.capacity*2);
+        }
+        this.end%=this.capacity;
+        return true;
+    }
+
+    /**
+     * Changes the capacity of the queue
+     * @param newSize the size to which the queue capacity should be changed
+     * @throws IllegalArgumentException if the new size is lower than the current one
+     */
+    public void resize(int newSize) {
+        int oldSize = this.size();
+        if (newSize < oldSize) {
+            throw new IllegalArgumentException("The queue can't be resized to a lower value than its current size");
+        } else {
+            Integer[] tempTab = new Integer[newSize];
             for(int i =0; i<this.capacity;i++){
                 tempTab[i] = this.tab[(this.begin+i)%this.capacity];
             }
-            this.capacity *= 2;
+            this.begin=0;
+            this.end = oldSize;
+            this.capacity = newSize;
             this.tab=tempTab;
         }
-
-        this.end = (this.end+1)%this.capacity;
-        return true;
     }
 
     @Override
     public Integer element() {
         if (this.isEmpty()){
-            throw new NoSuchElementException();
+            throw new NoSuchElementException("Empty queue");
         }
         else {
             return this.tab[begin];
@@ -47,7 +76,7 @@ public class IntFIFO implements Queue<Integer>{
     @Override
     public Integer popElement() {
         if (this.isEmpty()){
-            throw new NoSuchElementException();
+            throw new NoSuchElementException("Empty queue");
         }
         else {
             Integer temp = this.tab[begin];
