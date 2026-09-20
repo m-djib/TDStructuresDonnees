@@ -125,6 +125,7 @@ public class IntFIFO implements Queue<Integer>, Iterable<Integer>{
         public Integer next() {
             Integer val = IntFIFO.this.tab[counter];
             counter+=1;
+            counter%=IntFIFO.this.capacity;
             return val;
         }
     }

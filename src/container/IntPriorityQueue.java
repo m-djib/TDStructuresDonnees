@@ -1,9 +1,11 @@
 package container;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class IntPriorityQueue implements Queue<Integer> {
+public class IntPriorityQueue implements Queue<Integer>, Iterable<Integer> {
 
     private int capacity;
     private Integer[] tab;
@@ -108,7 +110,29 @@ public class IntPriorityQueue implements Queue<Integer> {
     }
 
     @Override
+    @NotNull
     public Iterator<Integer> iterator() {
-        return null;
+        return new IntPriorityQueueIterator();
+    }
+
+    private class IntPriorityQueueIterator implements Iterator<Integer>{
+
+        private int counter;
+
+        private IntPriorityQueueIterator() {
+            counter = 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return counter < IntPriorityQueue.this.size;
+        }
+
+        @Override
+        public Integer next() {
+            Integer val = IntPriorityQueue.this.tab[counter];
+            counter+=1;
+            return val;
+        }
     }
 }
