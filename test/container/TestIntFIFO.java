@@ -1,6 +1,7 @@
 package container;
 
 import java.util.*;
+
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -46,5 +47,17 @@ public class TestIntFIFO {
         queue.insertElement(6);
         assertEquals(5,queue.popElement());
         assertEquals(6,queue.popElement());
+    }
+
+    @Test
+    public void test_Iterator() {
+        IntFIFO queue = new IntFIFO(3);
+        queue.insertElement(2);
+        queue.insertElement(2);
+        queue.insertElement(2);
+        Iterator<Integer> it = queue.iterator();
+        while (it.hasNext()) {
+            assertEquals(2,it.next());
+        }
     }
 }
