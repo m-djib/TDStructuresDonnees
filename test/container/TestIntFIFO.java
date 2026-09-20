@@ -50,7 +50,7 @@ public class TestIntFIFO {
     }
 
     @Test
-    public void test_Iterator() {
+    public void test_iterator() {
         IntFIFO queue = new IntFIFO(3);
         queue.insertElement(2);
         queue.insertElement(2);
