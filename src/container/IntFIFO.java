@@ -123,6 +123,9 @@ public class IntFIFO implements Queue<Integer>, Iterable<Integer>{
 
         @Override
         public Integer next() {
+            if (!(this.hasNext())) {
+                throw new NoSuchElementException();
+            }
             Integer val = IntFIFO.this.tab[counter];
             counter+=1;
             counter%=IntFIFO.this.capacity;

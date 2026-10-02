@@ -34,7 +34,7 @@ public class TestIntFIFO {
 
     @Test
     public void test_pop_AutoGrowth() {
-        IntFIFO queue = new IntFIFO(3);
+        IntFIFO queue = new IntFIFO(2);
         queue.insertElement(1);
         queue.insertElement(2);
         queue.insertElement(3);
@@ -45,8 +45,18 @@ public class TestIntFIFO {
         assertEquals(3,queue.popElement());
         assertEquals(4,queue.popElement());
         queue.insertElement(6);
+        queue.insertElement(7);
+        queue.insertElement(8);
+        queue.insertElement(9);
         assertEquals(5,queue.popElement());
         assertEquals(6,queue.popElement());
+        queue.insertElement(10);
+        queue.insertElement(11);
+        assertEquals(7,queue.popElement());
+        assertEquals(8,queue.popElement());
+        assertEquals(9,queue.popElement());
+        assertEquals(10,queue.popElement());
+        assertEquals(11,queue.popElement());
     }
 
     @Test
@@ -59,5 +69,12 @@ public class TestIntFIFO {
         while (it.hasNext()) {
             assertEquals(2,it.next());
         }
+    }
+
+    @Test
+    public void test_iterator_empty() {
+        IntFIFO queue = new IntFIFO(0);
+        Iterator<Integer> it = queue.iterator();
+        assertFalse(it.hasNext());
     }
 }
