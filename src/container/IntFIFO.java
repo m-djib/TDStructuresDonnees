@@ -40,7 +40,6 @@ public class IntFIFO implements Queue<Integer>, Iterable<Integer>{
         if (this.size()==this.capacity){
             this.resize(this.capacity*2);
         }
-        this.end%=this.capacity;
         return true;
     }
 
@@ -124,7 +123,7 @@ public class IntFIFO implements Queue<Integer>, Iterable<Integer>{
         @Override
         public Integer next() {
             if (!(this.hasNext())) {
-                throw new NoSuchElementException();
+                throw new NoSuchElementException("Pas d'éléments à itérer");
             }
             Integer val = IntFIFO.this.tab[counter];
             counter+=1;
