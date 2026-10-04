@@ -130,6 +130,9 @@ public class IntPriorityQueue implements Queue<Integer>, Iterable<Integer> {
 
         @Override
         public Integer next() {
+            if (!(this.hasNext())) {
+                throw new NoSuchElementException("Pas d'éléments à itérer");
+            }
             Integer val = IntPriorityQueue.this.tab[counter];
             counter+=1;
             return val;

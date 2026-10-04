@@ -34,24 +34,24 @@ public class TestIntFIFO {
 
     @Test
     public void test_pop_AutoGrowth() {
-        IntFIFO queue = new IntFIFO(2);
+        IntFIFO queue = new IntFIFO(5);
         queue.insertElement(1);
         queue.insertElement(2);
         queue.insertElement(3);
-        assertEquals(1,queue.popElement());
-        assertEquals(2,queue.popElement());
         queue.insertElement(4);
         queue.insertElement(5);
+        assertEquals(1,queue.popElement());
+        assertEquals(2,queue.popElement());
         assertEquals(3,queue.popElement());
-        assertEquals(4,queue.popElement());
         queue.insertElement(6);
         queue.insertElement(7);
         queue.insertElement(8);
         queue.insertElement(9);
+        assertEquals(4,queue.popElement());
         assertEquals(5,queue.popElement());
-        assertEquals(6,queue.popElement());
         queue.insertElement(10);
         queue.insertElement(11);
+        assertEquals(6,queue.popElement());
         assertEquals(7,queue.popElement());
         assertEquals(8,queue.popElement());
         assertEquals(9,queue.popElement());

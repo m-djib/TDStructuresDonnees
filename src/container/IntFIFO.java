@@ -34,12 +34,14 @@ public class IntFIFO implements Queue<Integer>, Iterable<Integer>{
 
     @Override
     public boolean insertElement(Integer integer) {
-        this.tab[end] = integer;
-        this.end = this.end+1;
-
-        if (this.size()==this.capacity){
+        if (this.size()+1>=this.capacity){
             this.resize(this.capacity*2);
         }
+
+        this.tab[end] = integer;
+        this.end+=1;
+        this.end%=this.capacity;
+
         return true;
     }
 
